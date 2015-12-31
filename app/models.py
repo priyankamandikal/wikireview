@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import db
+from . import db, login_manager
 from flask.ext.login import UserMixin
 
 class Reviewer(UserMixin, db.Model):
@@ -25,4 +25,8 @@ class Reviewer(UserMixin, db.Model):
 
     def __repr__(self):
         return '<Reviewer %r>' % self.username
-        
+
+
+@login_manager.user_loader
+def load_reviewer(reviewer_id):
+    return Reviewer.query.get(int(reviewer_id))

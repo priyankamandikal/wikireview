@@ -4,6 +4,7 @@
 
 {% block page_content %}
 <div class="page-header">
-    <h1>Hello! Welcome to Wikireview!</h1>
+    <h1>Welcome to Wikireview!</h1> 
+    <h2>{% if current_user.is_authenticated %}Hello {{ current_user.username }}!{% endif %}</h2>
 </div>
 {% endblock %}
