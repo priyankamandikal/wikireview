@@ -1,0 +1,9 @@
+<p>Dear {{ reviewer.username }},</p>
+<p>Welcome to <b>Wikireview</b>!</p>
+<p>To confirm your account please <a href="{{ url_for('auth.confirm', token=token, _external=True) }}">click here</a>.</p>
+<p>Alternatively, you can paste the following link in your browser's address bar:</p>
+<p>{{ url_for('auth.confirm', token=token, _external=True) }}</p>
+<p>Link expires in 24 hours from time of sending.</p>
+<p>Sincerely,</p>
+<p>The Wikireview Team</p>
+<p><small>Note: replies to this email address are not monitored.</small></p>

@@ -1,4 +1,5 @@
 import unittest
+import time
 from app import create_app, db
 from app.models import Reviewer
 
@@ -33,3 +34,27 @@ class ReviewerModelTestCase(unittest.TestCase):
         r1 = Reviewer(password='cat')
         r2 = Reviewer(password='cat')
         self.assertTrue(r1.password_hash != r2.password_hash)
+
+    def test_valid_confirmation_token(self):
+        r = Reviewer(password='cat')
+        db.session.add(r)
+        db.session.commit()
+        token = r.generate_confirmation_token()
+        self.assertTrue(r.confirm(token))
+
+    def test_invalid_confirmation_token(self):
+        r1 = Reviewer(password='cat')
+        r2 = Reviewer(password='dog')
+        db.session.add(r1)
+        db.session.add(r2)
+        db.session.commit()
+        token = r1.generate_confirmation_token()
+        self.assertFalse(r2.confirm(token))
+
+    def test_expired_confirmation_token(self):
+        r = Reviewer(password='cat')
+        db.session.add(r)
+        db.session.commit()
+        token = r.generate_confirmation_token(1)
+        time.sleep(2)
+        self.assertFalse(r.confirm(token))
