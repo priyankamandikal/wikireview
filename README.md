@@ -1,6 +1,6 @@
 # wikireview
 
-The goal of this project is to build an accuracy bot for Wikipedia that marks outdated/unclear passages and sends it to the reviewers for review.
+The goal of this project is to build an accuracy review bot for Wikipedia that marks outdated/unclear passages and sends it to the reviewers for review.
 
 It is advisable to run the application in a virtual environment. Ubuntu users can install it using this command:
 ```
