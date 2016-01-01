@@ -1,4 +1,4 @@
-# wikireview
+# Wikireview
 
 The goal of this project is to build an accuracy review bot for Wikipedia that marks outdated/unclear passages and sends it to the reviewers for review.
 
