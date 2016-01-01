@@ -7,7 +7,7 @@ It is advisable to run the application in a virtual environment. Ubuntu users ca
 $ sudo apt-get install virtualenv
 ```
 
-To run the application on your system, clone this GitHub repository into your local PC using the following command in the terminal:<br>
+To run the application on your system, clone this GitHub repository onto your local PC using the following command in the terminal:<br>
 ```
 $ git clone https://github.com/priyankamandikal/wikireview.git
 ```
