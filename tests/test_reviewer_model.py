@@ -58,3 +58,22 @@ class ReviewerModelTestCase(unittest.TestCase):
         token = r.generate_confirmation_token(1)
         time.sleep(2)
         self.assertFalse(r.confirm(token))
+
+    def test_valid_reset_token(self):
+        u = Reviewer(password='cat')
+        db.session.add(u)
+        db.session.commit()
+        token = u.generate_reset_token()
+        self.assertTrue(u.reset_password(token, 'dog'))
+        self.assertTrue(u.verify_password('dog'))
+
+    def test_invalid_reset_token(self):
+        u1 = Reviewer(password='cat')
+        u2 = Reviewer(password='dog')
+        db.session.add(u1)
+        db.session.add(u2)
+        db.session.commit()
+        token = u1.generate_reset_token()
+        self.assertFalse(u2.reset_password(token, 'horse'))
+        self.assertTrue(u2.verify_password('dog'))
+
