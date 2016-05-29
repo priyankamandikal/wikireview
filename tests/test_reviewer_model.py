@@ -1,7 +1,7 @@
 import unittest
 import time
 from app import create_app, db
-from app.models import Reviewer
+from app.models import Reviewer, AnonymousReviewer, Role, Permission
 
 
 class ReviewerModelTestCase(unittest.TestCase):
@@ -10,6 +10,7 @@ class ReviewerModelTestCase(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
+        Role.insert_roles()
 
     def tearDown(self):
         db.session.remove()
@@ -76,4 +77,13 @@ class ReviewerModelTestCase(unittest.TestCase):
         token = u1.generate_reset_token()
         self.assertFalse(u2.reset_password(token, 'horse'))
         self.assertTrue(u2.verify_password('dog'))
+
+    def test_roles_and_permissions(self):
+        u = User(email='example@gmail.com', password='xyz')
+        self.assertTrue(u.can(Permission.COMMENT))
+        self.assertFalse(u.can(Permission.ADMINISTER))
+
+    def test_anonymous_reviewer(self):
+        u = AnonymousReviewer()
+        self.assertFalse(u.can(REVIEW))
 
